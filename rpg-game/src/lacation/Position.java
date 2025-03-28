@@ -1,8 +1,15 @@
 package lacation;
 
+import graph.Node;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+
 public class Position<T> {
     private Lacations last;
     private Lacations current;
+    private ArrayList<Lacations> lacationsProssed = new ArrayList<>();
 
     public Position() {
         this.current = null;
@@ -16,6 +23,7 @@ public class Position<T> {
     public void start(T values){
         if(isEmpty()){
             Lacations<T> temp = new Lacations<>(values);
+            lacationsProssed.add(temp);
             current = temp;
         } else System.out.println("Уже запусчен");
     }
@@ -55,6 +63,7 @@ public class Position<T> {
         }
         else {
             Lacations<T> temp = new Lacations<>(values);
+            lacationsProssed.add(temp);
             current.left = temp;
             current.left.rights = current;
             if(current.down != null){
@@ -81,18 +90,19 @@ public class Position<T> {
             return;
         }else {
             Lacations<T> temp = new Lacations<>(values);
+            lacationsProssed.add(temp);
             current.rights = temp;
             current.rights.left = current;
             if(current.down != null){
                 current.down.rightsUp = current.rights;
                 current.rights.leftDown = current.down;
-            }if(current.up != null){
+            }else if(current.up != null){
                 current.up.rightsDown = current.rights;
                 current.rights.leftUp = current.up;
-            }if(current.rightsUp != null){
+            }else if(current.rightsUp != null){
                 current.rights.up = current.rightsUp;
                 current.rightsUp.down = current.rights;
-            }if(current.rightsDown != null){
+            }else if(current.rightsDown != null){
                 current.rights.down = current.rightsDown;
                 current.rightsDown.up = current.rights;
             }
@@ -107,6 +117,7 @@ public class Position<T> {
             return;
         }else {
             Lacations<T> temp = new Lacations<>(values);
+            lacationsProssed.add(temp);
             current.up = temp;
             current.up.down = current;
             if(current.left != null){
@@ -133,6 +144,7 @@ public class Position<T> {
             return;
         }else {
             Lacations<T> temp = new Lacations<>(values);
+            lacationsProssed.add(temp);
             current.down = temp;
             current.down.up = current;
             if(current.left != null){
@@ -153,18 +165,23 @@ public class Position<T> {
         }
     }
 
-//    public void printLFirst(){
-//        Lacations temp = first;
-//        while (temp != null){
-//            temp.printValues();
-//            temp = temp.next;
-//        }
-//    }
-//    public void printLast(){
-//        Lacations temp = last;
-//        while (temp != null){
-//            temp.printValues();
-//            temp = temp.previus;
-//        }
-//    }
+    public void printHeritage(){
+        for (int i = 0; i < lacationsProssed.size(); i++){
+            if(lacationsProssed.get(i).left != null){
+                System.out.println(lacationsProssed.get(i).left + " Left");
+            }
+            if(lacationsProssed.get(i).rights != null){
+                System.out.println(lacationsProssed.get(i).rights + " Rights");
+            }
+            if(lacationsProssed.get(i).down != null){
+                System.out.println(lacationsProssed.get(i).down + " down");
+            }
+            if(lacationsProssed.get(i).up != null){
+                System.out.println(lacationsProssed.get(i).up + " up");
+            }
+            if(lacationsProssed.get(i).values != null){
+                System.out.println(lacationsProssed.get(i).values + " Values");
+            }
+        }
+    }
 }

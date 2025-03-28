@@ -19,18 +19,4 @@ public class Lacations<T> {
         System.out.print(values + " ");
     }
 
-    @Override
-    public String toString() {
-        return "Lacations{" +
-                "down=" + down +
-                ", values=" + values +
-                ", left=" + left +
-                ", rights=" + rights +
-                ", up=" + up +
-                ", leftUp=" + leftUp +
-                ", leftDown=" + leftDown +
-                ", rightsUp=" + rightsUp +
-                ", rightsDown=" + rightsDown +
-                '}';
-    }
 }
